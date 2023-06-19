@@ -133,6 +133,12 @@
         }
         #endregion
 
+        /// <summary>
+        /// Computes the augumented matrix for the row-th, cols-th element
+        /// </summary>
+        /// <param name="row">row index of the element</param>
+        /// <param name="col">column index of the element</param>
+        /// <returns>The augumented matrix</returns>
         public Matrix GetAugmentedMatrix(int row, int col)
         {
             if (_stored[row, col])
@@ -198,6 +204,10 @@
             return det;
         }
 
+        /// <summary>
+        /// Computes the determinant using the Gauss-Jordan algorithm
+        /// </summary>
+        /// <returns>The determinant</returns>
         public double DeterminantC()
         {
             //if (_determinant != null)
@@ -231,6 +241,11 @@
         }
         #endregion
 
+        /// <summary>
+        /// Performs a rows reduction on the matrix
+        /// </summary>
+        /// <param name="matrix">Matrix to reduce</param>
+        /// <returns>The reduced matrix</returns>
         public static Matrix RowsReduction(Matrix matrix)
         {
             Matrix result = matrix[.., ..];
@@ -265,6 +280,10 @@
             return result;
         }
 
+        /// <summary>
+        /// Computes the inverse matrix using the augumented matrix method
+        /// </summary>
+        /// <returns>The inverse matrix</returns>
         public Matrix Inverse()
         {
             if (_inverseMatrix != null)
@@ -284,6 +303,11 @@
             return _inverseMatrix;
         }
 
+        /// <summary>
+        /// Gets the identity matrix for a given dimension
+        /// </summary>
+        /// <param name="dim">Dimension of the matrix</param>
+        /// <returns>The identity matrix</returns>
         public static Matrix Identity(int dim)
         {
             var result = new Matrix(dim, dim);
@@ -294,6 +318,10 @@
             return result;
         }
 
+        /// <summary>
+        /// Computes the inverse matrix usgi Gauss-Jordan method
+        /// </summary>
+        /// <returns>The inverse matrix</returns>
         public Matrix InverseGauss()
         {
             var tmp = new Matrix(Rows, Columns*2);
