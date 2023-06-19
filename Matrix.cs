@@ -289,20 +289,6 @@
             tmp[.., Columns..] = Identity(Columns);
             tmp[.., ..Columns] = this;
             tmp = Gauss(tmp);
-            //for (int i = 0; i < Rows; i++)
-            //{
-            //    if (tmp[i, i] != 1)
-            //    {
-            //        for (int j = 0; j < Columns; j++)
-            //        {
-            //            if (tmp[i, j] == 1)
-            //            {
-            //                tmp = tmp.SwapRows(i, j);
-            //                break;
-            //            }
-            //        }
-            //    }
-            //}
             return tmp[.., Columns..];
         }
 
@@ -311,6 +297,14 @@
             var result = this[.., ..];
             result[r1,..] = this[r2,..];
             result[r2,..] = this[r1,..];
+            return result;
+        }
+
+        private Matrix SwapColumns(int c1, int c2)
+        {
+            var result = this[.., ..];
+            result[.., c1] = this[..,c2];
+            result[..,c2] = this[..,c1];
             return result;
         }
 
