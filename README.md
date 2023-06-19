@@ -32,3 +32,5 @@ var reduction = Matrix.Gauss(m);
 
 var inverse = reduction[.., 3..];
 ```
+
+***The library is in its early stages, there are many improvements both in terms of efficiency and functionality that can be made.***
