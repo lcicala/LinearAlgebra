@@ -2,8 +2,10 @@
 {
     public class Matrix
     {
+        // Values stored
         private double[,] m_Values;
 
+        // Dynamic programming fields
         private bool[,] _stored;
         private Matrix[,] _associatedMatrices;
         private Matrix _inverseMatrix;
@@ -26,6 +28,7 @@
             _cols = cols;
         }
 
+        #region Indexers
         public double this[Index i, Index j]
         {
             get
@@ -128,8 +131,9 @@
                 }
             }
         }
+        #endregion
 
-        public Matrix GetAssociatedMatrix(int row, int col)
+        public Matrix GetAugmentedMatrix(int row, int col)
         {
             if (_stored[row, col])
                 return _associatedMatrices[row, col];
@@ -152,6 +156,12 @@
             return result;
         }
 
+        #region Determinant calculations
+
+        /// <summary>
+        /// Computes the determinant using augmented matrices method
+        /// </summary>
+        /// <returns>The determinant</returns>
         public double Determinant()
         {
             if (_determinant != null)
@@ -182,7 +192,7 @@
             }
             for (int i = 0; i < Columns; i++)
             {
-                det += Math.Pow(-1, i) * this[0, i] * this.GetAssociatedMatrix(0, i).Determinant();
+                det += Math.Pow(-1, i) * this[0, i] * this.GetAugmentedMatrix(0, i).Determinant();
             }
             _determinant = det;
             return det;
@@ -219,6 +229,7 @@
             }
             return det;
         }
+        #endregion
 
         public static Matrix RowsReduction(Matrix matrix)
         {
@@ -266,7 +277,7 @@
             {
                 for (int j = 0; j < Columns; j++)
                 {
-                    result[i, j] = Math.Pow(-1, i + j) / det * this.GetAssociatedMatrix(i, j).Determinant();
+                    result[i, j] = Math.Pow(-1, i + j) / det * this.GetAugmentedMatrix(i, j).Determinant();
                 }
             }
             _inverseMatrix = result.Transpose();
