@@ -389,9 +389,9 @@
 
         public static Matrix operator *(Matrix m1, Matrix m2)
         {
-            if (m1.Rows != m2.Rows || m1.Columns != m2.Columns)
+            if (m1.Columns != m2.Rows)
                 throw new ArgumentException();
-            Matrix result = new Matrix(m1.Rows, m1.Columns);
+            Matrix result = new Matrix(m1.Rows, m2.Columns);
             for (int i = 0; i < m1.Rows; i++)
             {
                 for (int j = 0; j < m1.Columns; j++)
