@@ -30,5 +30,5 @@ m[.., 3..] = Matrix.Identity(3);
 
 var reduction = Matrix.Gauss(m);
 
-var inverse = reduction[.., ..3];
+var inverse = reduction[.., 3..];
 ```
