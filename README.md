@@ -33,4 +33,24 @@ var reduction = Matrix.Gauss(m);
 var inverse = reduction[.., 3..];
 ```
 
+These are some methods implemented in the ```Matrix``` class
+
+```C#
+Matrix m = new Matrix(5, 5);
+m.Determinant();
+m.Inverse();
+m.Rank();
+m.Transpose();
+```
+You can also enumerate the rows and the elements by ```IEnumerable``` interface
+```C#
+Matrix m = new Matrix(5, 5);
+foreach(var row in m)
+{
+  foreach(var element in row)
+  {
+    ...
+  }
+}
+```
 ***The library is in its early stages, there are many improvements both in terms of efficiency and functionality that can be made.***
