@@ -1,6 +1,9 @@
-﻿namespace LinearAlgebra
+﻿using System.Collections;
+using System.Linq;
+
+namespace LinearAlgebra
 {
-    public class Matrix
+    public class Matrix : IEnumerable<Vector>
     {
         // Values stored
         private double[,] m_Values;
@@ -331,6 +334,12 @@
             return tmp[.., Columns..];
         }
 
+        /// <summary>
+        /// Swap two rows in the matrix
+        /// </summary>
+        /// <param name="r1">First row to swap</param>
+        /// <param name="r2">Second row to swap</param>
+        /// <returns>The matrix with the rows swapped</returns>
         private Matrix SwapRows(int r1, int r2)
         {
             var result = this[.., ..];
@@ -339,6 +348,12 @@
             return result;
         }
 
+        /// <summary>
+        /// Swap two columns in the matrix
+        /// </summary>
+        /// <param name="c1">First column to swap</param>
+        /// <param name="c2">Second column to swap</param>
+        /// <returns>The matrix with the columns swapped</returns>
         private Matrix SwapColumns(int c1, int c2)
         {
             var result = this[.., ..];
@@ -347,6 +362,11 @@
             return result;
         }
 
+        /// <summary>
+        /// Performs the Gauss reduction
+        /// </summary>
+        /// <param name="m">The matrix to reduce</param>
+        /// <returns>The reduced matrix</returns>
         public static Matrix Gauss(Matrix m)
         {
             Matrix result = m[.., ..];
@@ -381,6 +401,10 @@
             return result;
         }
 
+        /// <summary>
+        /// Gets the transpose of the matrix
+        /// </summary>
+        /// <returns>The transposed matrix</returns>
         public Matrix Transpose()
         {
             Matrix result = new Matrix(Columns, Rows);
@@ -401,6 +425,33 @@
                     result += this[i, j].ToString() + " ";
                 }
                 result += "\n";
+            }
+            return result;
+        }
+
+        public IEnumerator<Vector> GetEnumerator()
+        {
+            for(int i = 0; i < Rows; i++)
+            {
+                yield return this[i, ..];
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        /// <summary>
+        /// Computes the rank of the matrix
+        /// </summary>
+        /// <returns>The rank of the matrix</returns>
+        public int Rank()
+        {
+            var result = 0;
+            foreach(var row in RowsReduction(this))
+            {
+                result += row.All(x => Math.Abs(x) < 1E-12) ? 0 : 1;
             }
             return result;
         }
@@ -435,6 +486,10 @@
             return result;
         }
 
+        /// <summary>
+        /// Inverse matrix
+        /// </summary>
+        /// <returns>The inverse matrix</returns>
         public static Matrix operator !(Matrix m)
         {
             return m.InverseGauss();

@@ -1,6 +1,8 @@
-﻿namespace LinearAlgebra
+﻿using System.Collections;
+
+namespace LinearAlgebra
 {
-    public class Vector
+    public class Vector : IEnumerable<double>
     {
         private double[] m_Values;
         private int _dim;
@@ -62,6 +64,17 @@
                 result += this[i].ToString() + " ";
             }
             return result;
+        }
+
+        public IEnumerator<double> GetEnumerator()
+        {
+            for(int i = 0; i < Dimension; i++)
+                yield return this[i];
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
 
         public static Vector operator ^(Vector v1, Vector v2)
