@@ -1,11 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace LinearAlgebra
 {
     public class Vector : IEnumerable<double>
     {
-        private double[] m_Values;
-        private int _dim;
+        protected double[] m_Values;
+        protected int _dim;
 
         public int Dimension { get => _dim; }
 
